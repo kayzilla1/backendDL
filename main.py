@@ -53,7 +53,7 @@ def home():
       "mensaje": "La API de reconocimiento de 210 clases está funcionando.",
   }
 
-@app.post("/predict/")
+@app.post("/predict")
 async def predict(file: UploadFile = File(...)):
   # 1. Validar que el archivo sea una imagen
   if not file.content_type.startswith("image/"):
@@ -99,8 +99,7 @@ async def predict(file: UploadFile = File(...)):
 
     return {
         "clase_predicha": predicted_class_name,
-        "indice": predicted_index,
-        "confianza": round(confidence * 100, 2),  # Porcentaje de confianza
+        "probabilidad": round(confidence * 100, 2),  # Porcentaje de confianza
     }
 
   except Exception as e:
